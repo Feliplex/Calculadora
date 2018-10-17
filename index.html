@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<link rel="shortcut icon" type="image/x-png" href="finn.png">
 	<link rel="stylesheet" type="text/css" href="style.css">
 	<title>Calculadora</title>
 </head>
@@ -18,10 +19,11 @@
 		<input id="n2" type="text" name="n2">
 		</div>
 		<div class="caixa-numero resultado">Resultado: <span id="resultado"></span></div>
-		<button onclick="somar()" class="botao">Somar</button>
-		<button onclick="subtrair()" class="botao">Subtrai</button>
-		<button onclick="multiplicar()" class="botao">Multiplicar</button>
-		<button onclick="dividir()" class="botao">Dividir</button>
+		<button class="botao" id="somar">Somar</button>
+		<button class="botao" id="subtrair">Subtrair</button>
+		<button class="botao" id="multiplicar">Multiplicar</button>
+		<button class="botao" id="dividir">Dividir</button>
+		<button class="botao" id="limpar">Limpar</button>
 	
 
 </body>
@@ -30,33 +32,72 @@
 	var n2 = document.querySelector('#n2')
 	var tag_resultado = document.querySelector('#resultado')
 
-	function somar (){
+	document.querySelectorAll('input').forEach(
+		function (input_html){
+
+			input_html.addEventListener('mousemove', function(evento){
+				evento.target.style.border = '2px solid red'
+			})
+			input_html.addEventListener('mouseleave', function(evento){
+				evento.target.style.border ='1px solid #eee'
+			})
+
+		input_html.addEventListener('keyup', function(evento){
+			var entrada_usuario = parseInt(evento.target.value)
+
+			if (isNaN(entrada_usuario) || !isFinite(entrada_usuario)){
+				evento.target.value = ''
+
+			}
+		})
+		})
+
+	document.querySelector('#limpar').addEventListener('click', function (){
+		n1.value = ''
+		n2.value = ''
+		tag_resultado.textContent = ''
+	})
+
+	document.querySelector('#dividir').addEventListener('click', function(){
+		var resultado = parseInt(n1.value) / parseInt(n2.value)
+
+		if(isNaN(resultado) || !isFinite(resultado)){
+		alert('Boludo')
+		return
+	}
+	tag_resultado.textContent = resultado
+	})
+
+	document.querySelector('#somar').addEventListener('click', function(){
 		var resultado = parseInt(n1.value) + parseInt(n2.value)
 
+		if(isNaN(resultado) || !isFinite(resultado)){
+		alert('Boludo')
+		return
+}
 		tag_resultado.textContent = resultado 
 		return false
-
-	}
-	function subtrair (){
+	})
+	document.querySelector('#subtrair').addEventListener('click', function(){
 		var resultado = parseInt(n1.value) - parseInt(n2.value)
 
+		if(isNaN(resultado) || !isFinite(resultado)){
+		alert('Boludo')
+		return
+}
 		tag_resultado.textContent = resultado 
 		return false
-	}
-	function multiplicar(){
+	})
+	document.querySelector('#multiplicar').addEventListener('click', function(){
 		var resultado = parseInt(n1.value) * parseInt(n2.value)
-
+		if(isNaN(resultado) || !isFinite(resultado)){
+		alert('Boludo')
+		return
+}
 		tag_resultado.textContent = resultado 
 		return false
 
-	}
-	function dividir (){
-		var resultado = parseInt(n1.value) / parseInt(n2.value)
-		
-
-		tag_resultado.textContent = resultado 
-		return false
-
-	}
+	})
+	
 </script>
 </html>
